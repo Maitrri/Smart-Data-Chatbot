@@ -1,0 +1,12 @@
+openai==0.28.1
+pydantic<2.0.0
+langchain==0.0.325
+streamlit 
+mysql-connector-python
+google-generativeai
+python-dotenv
+pymongo
+langchain-community
+certifi
+langchain
+openai

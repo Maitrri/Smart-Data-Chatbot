@@ -1,0 +1,401 @@
+Below are several sample user questions related to the MongoDB document provided, 
+and the corresponding MongoDB aggregation pipeline queries that can be used to fetch the desired data.
+Use them wisely.
+
+Question 1: What are the features of the apartment at "3707 Woodley Road, NW"?
+
+Query:
+[
+  { "$match": { "address": "3707 Woodley Rd NW" } },
+  { "$project": { 
+      "title": 1, 
+      "bedrooms": 1, 
+      "bathrooms": 1, 
+      "square_feet": 1, 
+      "price": 1,
+      "pets_allowed": 1,
+      "_id": 0 
+    } 
+  }
+]
+
+
+Question 2: How many 2-bedroom apartments are available in Washington DC?
+
+Query:
+[
+  { "$match": { 
+      "bedrooms": 2, 
+      "cityname": "Washington", 
+      "state": "DC" 
+    } 
+  },
+  { "$count": "two_bedroom_apartments" }
+]
+
+
+Question 3: What is the average price of 1-bedroom apartments in Washington DC?
+
+Query:
+[
+  { "$match": { 
+      "bedrooms": 1, 
+      "cityname": "Washington", 
+      "state": "DC" 
+    } 
+  },
+  { "$group": { 
+      "_id": null, 
+      "average_price": { "$avg": "$price" } 
+    } 
+  },
+  { "$project": { 
+      "_id": 0, 
+      "average_price": 1 
+    } 
+  }
+]
+
+
+Question 4: List all apartments that allow pets in Washington DC.
+
+Query:
+[
+  { "$match": { 
+      "cityname": "Washington", 
+      "state": "DC", 
+      "pets_allowed": { "$ne": "" } 
+    } 
+  },
+  { "$project": { 
+      "title": 1, 
+      "address": 1, 
+      "pets_allowed": 1, 
+      "price": 1, 
+      "_id": 0 
+    } 
+  },
+  { "$limit": 10 }
+]
+
+
+Question 5: Find the most expensive apartment in Washington DC.
+
+Query:
+[
+  { "$match": { 
+      "cityname": "Washington", 
+      "state": "DC" 
+    } 
+  },
+  { "$sort": { "price": -1 } },
+  { "$limit": 1 },
+  { "$project": { 
+      "title": 1, 
+      "address": 1, 
+      "price": 1, 
+      "bedrooms": 1, 
+      "bathrooms": 1, 
+      "square_feet": 1, 
+      "_id": 0 
+    } 
+  }
+]
+
+
+Question 6: How many apartments are available in each city?
+
+Query:
+[
+  { "$group": { 
+      "_id": "$cityname", 
+      "count": { "$sum": 1 } 
+    } 
+  },
+  { "$sort": { "count": -1 } },
+  { "$project": { 
+      "city": "$_id", 
+      "count": 1, 
+      "_id": 0 
+    } 
+  }
+]
+
+
+Question 7: Find all apartments with at least 2 bedrooms and 2 bathrooms under $2500 per month.
+
+Query:
+[
+  { "$match": { 
+      "bedrooms": { "$gte": 2 }, 
+      "bathrooms": { "$gte": 2 }, 
+      "price": { "$lt": 2500 }, 
+      "price_type": "Monthly" 
+    } 
+  },
+  { "$project": { 
+      "title": 1, 
+      "address": 1, 
+      "cityname": 1, 
+      "state": 1, 
+      "price": 1, 
+      "bedrooms": 1, 
+      "bathrooms": 1, 
+      "square_feet": 1, 
+      "_id": 0 
+    } 
+  },
+  { "$limit": 10 }
+]
+
+
+Question 8: Update the price of the apartment at "3707 Woodley Rd NW" to 2600.
+
+Query:
+{
+  "operation": "updateOne",
+  "filter": { "address": "3707 Woodley Rd NW" },
+  "update": { "$set": { "price": 2600 } }
+}
+
+
+Question 9: Delete the listing at "1234 Elm Street".
+
+Query:
+{
+  "operation": "deleteOne",
+  "filter": { "address": "1234 Elm Street" }
+}
+
+
+Question 10: Add a new listing for a 1-bedroom apartment at "101 Main St", Washington DC with rent $2000.
+
+Query:
+{
+  "operation": "insertOne",
+  "document": {
+    "title": "New Cozy Apartment",
+    "bedrooms": 1,
+    "bathrooms": 1,
+    "price": 2000,
+    "address": "101 Main St",
+    "cityname": "Washington",
+    "state": "DC",
+    "price_type": "Monthly"
+  }
+}
+
+
+Question 11: Update all listings in Washington DC to add "No Pets" in the pets_allowed field.
+
+Query:
+{
+  "operation": "updateMany",
+  "filter": { "cityname": "Washington", "state": "DC" },
+  "update": { "$set": { "pets_allowed": "No Pets" } }
+}
+
+
+Question 12: Insert multiple new apartment listings
+
+Query:
+{
+  "operation": "insertMany",
+  "documents": [
+    {
+      "title": "Chic Studio in Downtown",
+      "bedrooms": 0,
+      "bathrooms": 1,
+      "price": 1500,
+      "address": "456 Park Ave",
+      "cityname": "New York",
+      "state": "NY",
+      "price_type": "Monthly"
+    },
+    {
+      "title": "Spacious 3BHK Family Home",
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "price": 3200,
+      "address": "789 Oak Street",
+      "cityname": "Los Angeles",
+      "state": "CA",
+      "price_type": "Monthly"
+    }
+  ]
+}
+
+
+Question 13: Find apartments in Washington DC with their review scores.
+
+Query:
+[
+  { "$match": { 
+      "cityname": "Washington", 
+      "state": "DC" 
+    } 
+  },
+  { "$lookup": {
+      "from": "review",
+      "localField": "id",
+      "foreignField": "id",
+      "as": "review_info"
+    }
+  },
+  { "$project": {
+      "title": 1,
+      "address": 1,
+      "price": 1,
+      "review_info.number_of_reviews": 1,
+      "review_info.review_scores": 1,
+      "_id": 0
+    }
+  }
+]
+
+Question 14: Show listings with their host information for apartments with more than 3 bedrooms.
+
+Query:
+[
+  { "$match": {
+      "bedrooms": { "$gt": 3 }
+    }
+  },
+  { "$lookup": {
+      "from": "host",
+      "localField": "host_id",
+      "foreignField": "host_id",
+      "as": "host_info"
+    }
+  },
+  { "$project": {
+      "title": 1,
+      "bedrooms": 1,
+      "host_info.host_name": 1,
+      "host_info.host_since": 1,
+      "host_info.host_response_time": 1,
+      "_id": 0
+    }
+  }
+]
+
+Question 15: Find apartments with poor reviews (review score below 3) in New York.
+
+Query:
+[
+  { "$match": {
+      "cityname": "New York",
+      "state": "NY"
+    }
+  },
+  { "$lookup": {
+      "from": "review",
+      "localField": "id",
+      "foreignField": "id",
+      "as": "review_info"
+    }
+  },
+  { "$match": {
+      "review_info.review_scores": { "$lt": 3 }
+    }
+  },
+  { "$project": {
+      "title": 1,
+      "address": 1,
+      "price": 1,
+      "review_info.review_scores": 1,
+      "_id": 0
+    }
+  }
+]
+
+Question 16: Update the host information for host_id 12345 to set their response time to "within an hour".
+
+Query:
+{
+  "operation": "updateOne",
+  "filter": { "host_id": 12345 },
+  "update": { "$set": { "host_response_time": "within an hour" } },
+  "collection": "host"
+}
+
+Question 17: Add a new review for listing id 67890 with 5 stars.
+
+Query:
+{
+  "operation": "insertOne",
+  "document": {
+    "id": 67890,
+    "number_of_reviews": 1,
+    "review_scores": 5
+  },
+  "collection": "review"
+}
+
+Question 18: Delete all reviews for listing id 12345.
+
+Query:
+{
+  "operation": "deleteMany",
+  "filter": { "id": 12345 },
+  "collection": "review"
+}
+
+Question 19: Find apartments with superhosts (hosts who joined before 2015) in Los Angeles.
+
+Query:
+[
+  { "$match": {
+      "cityname": "Los Angeles",
+      "state": "CA"
+    }
+  },
+  { "$lookup": {
+      "from": "host",
+      "localField": "host_id",
+      "foreignField": "host_id",
+      "as": "host_info"
+    }
+  },
+  { "$match": {
+      "host_info.host_since": { "$lt": "2015-01-01" }
+    }
+  },
+  { "$project": {
+      "title": 1,
+      "address": 1,
+      "host_info.host_name": 1,
+      "host_info.host_since": 1,
+      "_id": 0
+    }
+  }
+]
+
+Question 20: Find the top 5 most reviewed apartments with their host names.
+
+Query:
+[
+  { "$lookup": {
+      "from": "review",
+      "localField": "id",
+      "foreignField": "id",
+      "as": "review_info"
+    }
+  },
+  { "$lookup": {
+      "from": "host",
+      "localField": "host_id",
+      "foreignField": "host_id",
+      "as": "host_info"
+    }
+  },
+  { "$sort": { "review_info.number_of_reviews": -1 } },
+  { "$limit": 5 },
+  { "$project": {
+      "title": 1,
+      "review_info.number_of_reviews": 1,
+      "host_info.host_name": 1,
+      "_id": 0
+    }
+  }
+]
