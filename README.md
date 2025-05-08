@@ -43,6 +43,13 @@ DB_HOST=your_mysql_host
 DB_USER=your_mysql_user
 DB_PASSWORD=your_mysql_password
 DB_NAME=chatbot
+
+username = "your_Mongodb_cluster_user-name_here"
+pwd = "your_Mongodb_cluster_pass-word_here"
+db = client["house"]
+listing_collection = db["listing"]
+review_collection = db["review"]
+host_collection = db["host"]
 ```
 
 > **Note:** MongoDB credentials are currently hardcoded in `maincpy_cleaned.py`. Modify them if needed.
