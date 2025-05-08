@@ -15,8 +15,9 @@ from langchain.schema import HumanMessage
 
 llm = ChatOpenAI(openai_api_key=api_key, temperature=0)
 
-username = "maitrric"
-pwd = "RU6JNDEzJspDWzL3"
+load_dotenv()
+username = os.getenv("username")
+pwd = os.getenv("pwd")
 connection_string = f"mongodb+srv://{username}:{pwd}@cluster0.mlpkdqu.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 client = MongoClient(connection_string)
 
