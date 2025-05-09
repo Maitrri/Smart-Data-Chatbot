@@ -43,10 +43,64 @@ DB_HOST=your_mysql_host
 DB_USER=your_mysql_user
 DB_PASSWORD=your_mysql_password
 DB_NAME=chatbot
+
+username = "your_Mongodb_cluster_user-name_here"
+pwd = "your_Mongodb_cluster_pass-word_here"
+db = client["house"]
+listing_collection = db["listing"]
+review_collection = db["review"]
+host_collection = db["host"]
 ```
 
 > **Note:** MongoDB credentials are currently hardcoded in `maincpy_cleaned.py`. Modify them if needed.
 
+---
+
+
+## 🍃 MongoDB Integration Steps
+
+Follow these steps to integrate MongoDB Atlas with your Smart Data Chatbot:
+
+### 🔧 Setup MongoDB Atlas
+
+1. Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) and **create a new account** (if you don't have one).
+2. Once logged in, **create a new project** and give it a name.
+3. Inside the project, **build a new cluster**. Choose the **free shared cluster**.
+4. After the cluster is created, go to **Database Access** and **add a new database user**:
+   - Set a **username** and **password**
+   - Keep these credentials ready to add in the `.env` file
+
+### 🔌 Connect with MongoDB Compass
+
+5. Click on **Connect**, then choose **MongoDB Compass** as the connection method.
+6. Select **"I have MongoDB Compass installed"**
+7. Copy the **connection string**, which will look like:
+     mongodb+srv://<username>:<password>@cluster0.hfendqx.mongodb.net/
+
+### 🧭 Setup MongoDB Compass
+
+8. If you don’t have Compass, download it from [here](https://www.mongodb.com/try/download/compass)
+9. Open Compass and **paste the connection string** in the **URI** field
+10. **Click Connect**
+
+### 🗃️ Create Database & Collections
+
+11. Inside Compass:
+ - Create a new **Database** called `house`
+ - Inside `house`, create a **Collection** called `listing`
+ - Import your **housing CSV data** into this collection
+
+12. Create two additional collections in the `house` database:
+ - `review`
+ - `host`
+ - Import the respective CSV data into each collection
+
+### ✅ Final Verification
+
+13. Go back to MongoDB Atlas and check the **Clusters > Collections** tab to verify your data is uploaded correctly.
+
+
+> Your MongoDB setup is now complete and ready to be used with Smart Data Chatbot!
 ---
 
 ## 🚀 How to Run
