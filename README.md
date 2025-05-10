@@ -10,7 +10,7 @@ Smart Data Chatbot is an intelligent, multimodal chatbot built using Streamlit, 
 
 This chatbot is ideal for scenarios where users need to search or modify data without writing complex queries — e.g., students looking for off-campus housing or customers searching for restaurants by cuisine, health ratings, or reviews.
 
-## 🧉 Project Structure
+## 🧩 Project Structure
 
 ```
 .
@@ -64,11 +64,11 @@ host_collection = db["host"]
 
 ---
 
-## 🌳 MongoDB Integration Steps
+## 🍃 MongoDB Integration Steps
 
 Follow these steps to integrate MongoDB Atlas with your Smart Data Chatbot:
 
-### 🔧 Setup MongoDB Atlas
+### 🪴 Create MongoDB Account & Cluster
 
 1. Go to [MongoDB Atlas](https://www.mongodb.com/cloud/atlas) and **create a new account** (if you don't have one).
 2. Once logged in, **create a new project** and give it a name.
@@ -85,7 +85,7 @@ Follow these steps to integrate MongoDB Atlas with your Smart Data Chatbot:
 7. Copy the **connection string**, which will look like:
    mongodb+srv://<username>:<password>@cluster0.hfendqx.mongodb.net/
 
-### 🔭 Setup MongoDB Compass
+### 🧭 Load Data in Compass
 
 8. If you don’t have Compass, download it from [here](https://www.mongodb.com/try/download/compass)
 9. Open Compass and **paste the connection string** in the **URI** field
@@ -105,19 +105,35 @@ Follow these steps to integrate MongoDB Atlas with your Smart Data Chatbot:
 * `host`
 * Import the respective CSV data into each collection
 
-### ✅ Final Verification
+### ✅ Final Check
 
 13. Go back to MongoDB Atlas and check the **Clusters > Collections** tab to verify your data is uploaded correctly.
 
-> Your MongoDB setup is now complete and ready to be used with Smart Data Chatbot!
+> 🌟 Your MongoDB setup is now complete and ready to be used with Smart Data Chatbot!
 
 ---
 
-## 📃 MySQL Integration Steps
+## 🧠 MySQL Chatbot Module
+
+This module empowers users to interact with a MySQL database using natural language through a friendly Streamlit chatbot interface. Users can input prompts such as:
+
+> "List all restaurants in Los Angeles with health rating over 90"
+> "Show vegetarian menu items under \$10"
+> "Add a new restaurant to the database"
+
+The system processes these queries by:
+
+* Generating the appropriate SQL query
+* Executing it on the MySQL backend
+* Displaying both the query and its results in the app
+
+---
+
+## 🐬 MySQL Integration Steps
 
 Follow these steps to integrate your MySQL database with the Smart Data Chatbot:
 
-### 📄 Setup MySQL Database
+### 🗄️ Setup MySQL Database
 
 1. Install MySQL locally or use a remote MySQL server.
 2. Create a new **database** named `chatbot`.
@@ -129,7 +145,7 @@ Follow these steps to integrate your MySQL database with the Smart Data Chatbot:
 
 > You can use MySQL Workbench or command-line tools to execute SQL `CREATE TABLE` scripts for setting this up.
 
-### 🖎️ Example Table Structure
+### 📑 Example Table Structure
 
 Use the following structure for each table:
 
@@ -186,7 +202,7 @@ CREATE TABLE reviews (
 );
 ```
 
-### 🔗 Connect SQL in the `.env` file
+### 🔐 Connect SQL in the `.env` file
 
 Add your SQL credentials in the `.env` file like this:
 
@@ -197,9 +213,9 @@ DB_PASSWORD=your_mysql_password
 DB_NAME=chatbot
 ```
 
-> Make sure your MySQL server allows connections from your app’s IP or localhost.
+> Ensure your MySQL server allows connections from your app’s IP or localhost.
 
-### 📄 Import Data
+### 📥 Import Data
 
 4. Upload data into the above tables using either:
 
@@ -218,7 +234,7 @@ LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 ```
 
-### ✅ Final Verification
+### 🔍 Final Verification
 
 5. Run a few SELECT queries to verify that data is present:
 
@@ -227,7 +243,7 @@ SELECT * FROM restaurant LIMIT 5;
 SELECT * FROM menu LIMIT 5;
 ```
 
-> ✅ Your MySQL setup is now complete and ready to be used with Smart Data Chatbot!
+> 🚀 Your MySQL setup is now complete and ready to be used with Smart Data Chatbot!
 
 ---
 
