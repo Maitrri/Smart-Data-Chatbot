@@ -10,8 +10,7 @@ Smart Data Chatbot is an intelligent, multimodal chatbot built using Streamlit, 
 
 This chatbot is ideal for scenarios where users need to search or modify data without writing complex queries — e.g., students looking for off-campus housing or customers searching for restaurants by cuisine, health ratings, or reviews.
 
-
-## 🧩 Project Structure
+## 🧉 Project Structure
 
 ```
 .
@@ -27,12 +26,14 @@ This chatbot is ideal for scenarios where users need to search or modify data wi
 ## ⚙️ Prerequisites
 
 ### 🔑 API Keys
-- `OPENAI_API_KEY`: for LangChain + OpenAI LLM
-- `GOOGLE_API_KEY`: for Gemini SQL query generation
+
+* `OPENAI_API_KEY`: for LangChain + OpenAI LLM
+* `GOOGLE_API_KEY`: for Gemini SQL query generation
 
 ### 📦 Python Libraries
 
 Install with:
+
 ```bash
 pip install streamlit langchain openai python-dotenv pymongo mysql-connector-python google-generativeai pandas pydeck speechrecognition
 ```
@@ -63,8 +64,7 @@ host_collection = db["host"]
 
 ---
 
-
-## 🍃 MongoDB Integration Steps
+## 🌳 MongoDB Integration Steps
 
 Follow these steps to integrate MongoDB Atlas with your Smart Data Chatbot:
 
@@ -74,17 +74,18 @@ Follow these steps to integrate MongoDB Atlas with your Smart Data Chatbot:
 2. Once logged in, **create a new project** and give it a name.
 3. Inside the project, **build a new cluster**. Choose the **free shared cluster**.
 4. After the cluster is created, go to **Database Access** and **add a new database user**:
-   - Set a **username** and **password**
-   - Keep these credentials ready to add in the `.env` file
+
+   * Set a **username** and **password**
+   * Keep these credentials ready to add in the `.env` file
 
 ### 🔌 Connect with MongoDB Compass
 
 5. Click on **Connect**, then choose **MongoDB Compass** as the connection method.
 6. Select **"I have MongoDB Compass installed"**
 7. Copy the **connection string**, which will look like:
-     mongodb+srv://<username>:<password>@cluster0.hfendqx.mongodb.net/
+   mongodb+srv://<username>:<password>@cluster0.hfendqx.mongodb.net/
 
-### 🧭 Setup MongoDB Compass
+### 🔭 Setup MongoDB Compass
 
 8. If you don’t have Compass, download it from [here](https://www.mongodb.com/try/download/compass)
 9. Open Compass and **paste the connection string** in the **URI** field
@@ -93,159 +94,148 @@ Follow these steps to integrate MongoDB Atlas with your Smart Data Chatbot:
 ### 🗃️ Create Database & Collections
 
 11. Inside Compass:
- - Create a new **Database** called `house`
- - Inside `house`, create a **Collection** called `listing`
- - Import your **housing CSV data** into this collection
+
+* Create a new **Database** called `house`
+* Inside `house`, create a **Collection** called `listing`
+* Import your **housing CSV data** into this collection
 
 12. Create two additional collections in the `house` database:
- - `review`
- - `host`
- - Import the respective CSV data into each collection
+
+* `review`
+* `host`
+* Import the respective CSV data into each collection
 
 ### ✅ Final Verification
 
 13. Go back to MongoDB Atlas and check the **Clusters > Collections** tab to verify your data is uploaded correctly.
 
-
 > Your MongoDB setup is now complete and ready to be used with Smart Data Chatbot!
----
-# 🧠 Natural Language to SQL Query Converter
-
-This project allows users to interact with an SQL database using *natural language* via a user-friendly *Streamlit chatbot interface*. Users can enter prompts like:
-
-> "Show all the tables in the database"  
-> "List all vegetarian menu items under $10"  
-> "Add a new restaurant to the database"
-
-The system will then:
-- Generate the corresponding *SQL query*
-- Execute it on the database
-- Display both the query and the output in the interface
 
 ---
 
-## 💡 Features
+## 📃 MySQL Integration Steps
 
-The chatbot supports the following functionalities:
+Follow these steps to integrate your MySQL database with the Smart Data Chatbot:
 
-1. *📊 Data Exploration* – Retrieve data using filters, joins, and conditions  
-2. *📚 Schema Interaction* – Show tables, describe structures, inspect fields  
-3. *✏️ Data Manipulation* – Insert, update, and delete records
+### 📄 Setup MySQL Database
 
----
+1. Install MySQL locally or use a remote MySQL server.
+2. Create a new **database** named `chatbot`.
+3. Inside the `chatbot` schema, create the following tables:
 
-## 🗂️ Dataset Structure
+   * `restaurant`
+   * `menu`
+   * `reviews`
 
-Make sure the following tables are uploaded to your *SQL Server* under a *single schema named chatbot*:
+> You can use MySQL Workbench or command-line tools to execute SQL `CREATE TABLE` scripts for setting this up.
 
-### restaurant
-- restaurant_id (bigint)  
-- restaurant_name (text)  
-- cuisine (text)  
-- city (text)  
-- state (text)  
-- address (text)  
-- latitude (float)  
-- longitude (float)  
-- phone_number (text)  
-- email (text)  
-- delivery_available (text)  
-- seating_capacity (int)  
-- opening_hours (text)  
-- has_wifi (text)  
-- has_outdoor_seating (text)  
-- payment_methods (text)  
-- parking_available (text)  
-- alcohol_served (text)  
-- reservation_required (text)  
-- music_type (text)  
-- health_rating (int)  
-- has_kids_menu (text)
+### 🖎️ Example Table Structure
 
-### menu
-- restaurant_id (bigint)  
-- item_name (text)  
-- price_usd (float)  
-- is_vegetarian (bool)  
-- image_url (text)
+Use the following structure for each table:
 
-### reviews
-- restaurant_id (bigint)  
-- rating (float)  
-- review_count (int)  
-- sample_review (text)  
-- tags (text)
-
----
-
-## 🧪 Example Natural Language Queries
+#### `restaurant`
 
 ```sql
--- ✅ Schema Exploration:
-"Show all tables"
-"Describe the restaurant table"
-"Display first 5 reviews"
+CREATE TABLE restaurant (
+  restaurant_id BIGINT PRIMARY KEY,
+  restaurant_name TEXT,
+  cuisine TEXT,
+  city TEXT,
+  state TEXT,
+  address TEXT,
+  latitude FLOAT,
+  longitude FLOAT,
+  phone_number TEXT,
+  email TEXT,
+  delivery_available TEXT,
+  seating_capacity INT,
+  opening_hours TEXT,
+  has_wifi TEXT,
+  has_outdoor_seating TEXT,
+  payment_methods TEXT,
+  parking_available TEXT,
+  alcohol_served TEXT,
+  reservation_required TEXT,
+  music_type TEXT,
+  health_rating INT,
+  has_kids_menu TEXT
+);
+```
 
--- ✅ Data Showing:
-"List all restaurants in Los Angeles with health rating over 90"
-"Show vegetarian items under $10"
-"Get average rating for each restaurant"
+#### `menu`
 
--- ✅ Data Manipulation:
-"Add a new restaurant"
-"Update the health rating of a restaurant"
-"Delete a review for a specific restaurant"
-⚙️ Setup Instructions
-Follow these steps to get the project running locally:
+```sql
+CREATE TABLE menu (
+  restaurant_id BIGINT,
+  item_name TEXT,
+  price_usd FLOAT,
+  is_vegetarian BOOLEAN,
+  image_url TEXT
+);
+```
 
-* Clone the repository
+#### `reviews`
 
-bash
-git clone https://github.com/your-username/nl-to-sql-chatbot.git
-cd nl-to-sql-chatbot
-* Create a Python virtual environment
+```sql
+CREATE TABLE reviews (
+  restaurant_id BIGINT,
+  rating FLOAT,
+  review_count INT,
+  sample_review TEXT,
+  tags TEXT
+);
+```
 
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-* Install all dependencies using the provided requirements.txt
+### 🔗 Connect SQL in the `.env` file
 
-pip install -r requirements.txt
-* Create a .env file in the root directory and add your Google API key
+Add your SQL credentials in the `.env` file like this:
 
-ini
-GOOGLE_API_KEY=your_google_api_key_here
-* Ensure your SQL database is accessible and contains the required schema chatbot with the tables restaurant, menu, and reviews
+```dotenv
+DB_HOST=your_mysql_host
+DB_USER=your_mysql_user
+DB_PASSWORD=your_mysql_password
+DB_NAME=chatbot
+```
 
-* Run the Streamlit application
+> Make sure your MySQL server allows connections from your app’s IP or localhost.
 
+### 📄 Import Data
 
-streamlit run app.py
-📦 Dependencies
-This project uses the following libraries:
+4. Upload data into the above tables using either:
 
-google-generativeai – For natural language to SQL translation
+   * MySQL Workbench import wizard
+   * CSV `LOAD DATA INFILE` commands
+   * Python scripts using `mysql-connector-python`
 
-mysql-connector-python – SQL database connection
+Example for loading CSV:
 
-python-dotenv – For managing API keys and secrets
+```sql
+LOAD DATA INFILE '/path/to/restaurant.csv'
+INTO TABLE restaurant
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+```
 
-streamlit – To build the user interface
+### ✅ Final Verification
 
-All dependencies are listed in the requirements.txt file for easy installation.
+5. Run a few SELECT queries to verify that data is present:
 
-⚠️ Important Notes
-* The dataset must be uploaded to your SQL server under a schema named chatbot
-* The table names must match exactly: restaurant, menu, and reviews
-* Always use a Python virtual environment to manage dependencies:
+```sql
+SELECT * FROM restaurant LIMIT 5;
+SELECT * FROM menu LIMIT 5;
+```
 
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+> ✅ Your MySQL setup is now complete and ready to be used with Smart Data Chatbot!
 
 ---
+
 ## 🚀 How to Run
 
 1. Ensure MySQL and MongoDB (Atlas) are populated with the proper schemas and collections.
 2. Launch the app:
+
 ```bash
 streamlit run apptry.py
 ```
@@ -254,11 +244,10 @@ streamlit run apptry.py
 
 ## 💡 Features
 
-- Auto-detect SQL vs NoSQL backend
-- Natural language to query conversion via LLMs
-- Voice input and map-based visualization
-- Download chat history as CSV
-- Plain English response summaries
+* Auto-detect SQL vs NoSQL backend
+* Natural language to query conversion via LLMs
+* Voice input and map-based visualization
+* Download chat history as CSV
+* Plain English response summaries
 
 ---
-
