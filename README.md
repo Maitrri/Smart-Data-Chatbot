@@ -4,6 +4,13 @@ An AI-powered chatbot built with **Streamlit** that understands natural language
 
 ---
 
+## 📘 Description
+
+Smart Data Chatbot is an intelligent, multimodal chatbot built using Streamlit, designed to process natural language queries and route them to the correct backend: MongoDB for housing data or MySQL (SQL) for restaurant data. It combines OpenAI’s GPT model (via LangChain) and Google Gemini to translate user questions into executable queries, automatically detect the relevant domain, and display results in both tabular and natural language format. The app also supports voice input, interactive maps, and CSV downloads for an enriched user experience.
+
+This chatbot is ideal for scenarios where users need to search or modify data without writing complex queries — e.g., students looking for off-campus housing or customers searching for restaurants by cuisine, health ratings, or reviews.
+
+
 ## 🧩 Project Structure
 
 ```
@@ -255,8 +262,3 @@ streamlit run apptry.py
 
 ---
 
-## 📘 Description
-
-Smart Data Chatbot is an intelligent, multimodal chatbot built using Streamlit, designed to process natural language queries and route them to the correct backend: MongoDB for housing data or MySQL (SQL) for restaurant data. It combines OpenAI’s GPT model (via LangChain) and Google Gemini to translate user questions into executable queries, automatically detect the relevant domain, and display results in both tabular and natural language format. The app also supports voice input, interactive maps, and CSV downloads for an enriched user experience.
-
-This chatbot is ideal for scenarios where users need to search or modify data without writing complex queries — e.g., students looking for off-campus housing or customers searching for restaurants by cuisine, health ratings, or reviews.
