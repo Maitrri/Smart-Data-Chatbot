@@ -10,6 +10,17 @@ Smart Data Chatbot is an intelligent, multimodal chatbot built using Streamlit, 
 
 This chatbot is ideal for scenarios where users need to search or modify data without writing complex queries — e.g., students looking for off-campus housing or customers searching for restaurants by cuisine, health ratings, or reviews.
 
+## 💡 Features
+
+* Auto-detect SQL vs NoSQL backend
+* Natural language to query conversion via LLMs
+* Voice input and map-based visualization
+* Download chat history as CSV
+* Plain English response summaries
+
+---
+
+
 ## 🧩 Project Structure
 
 ```
@@ -234,6 +245,17 @@ LINES TERMINATED BY '\n'
 IGNORE 1 ROWS;
 ```
 
+## 🚀 How to Run
+
+1. Ensure MySQL and MongoDB (Atlas) are populated with the proper schemas and collections.
+2. Launch the app:
+
+```bash
+streamlit run apptry.py
+```
+
+---
+
 ### 🔍 Final Verification
 
 5. Run a few SELECT queries to verify that data is present:
@@ -247,23 +269,4 @@ SELECT * FROM menu LIMIT 5;
 
 ---
 
-## 🚀 How to Run
 
-1. Ensure MySQL and MongoDB (Atlas) are populated with the proper schemas and collections.
-2. Launch the app:
-
-```bash
-streamlit run apptry.py
-```
-
----
-
-## 💡 Features
-
-* Auto-detect SQL vs NoSQL backend
-* Natural language to query conversion via LLMs
-* Voice input and map-based visualization
-* Download chat history as CSV
-* Plain English response summaries
-
----
